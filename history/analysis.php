@@ -6,15 +6,15 @@ $today = new DateTime($_POST['today']);
 $this_month = $today->format('Y-m');
 
 $day7 = $today->format('Y-m-d');
-$day6 = date_sub($today, new DateInterval('PID'))->format('Y-m-d');
-$day5 = date_sub($today, new DateInterval('PID'))->format('Y-m-d');
-$day4 = date_sub($today, new DateInterval('PID'))->format('Y-m-d');
-$day3 = date_sub($today, new DateInterval('PID'))->format('Y-m-d');
-$day2 = date_sub($today, new DateInterval('PID'))->format('Y-m-d');
-$day1 = date_sub($today, new DateInterval('PID'))->format('Y-m-d');
+$day6 = date_sub($today, new DateInterval('P1D'))->format('Y-m-d');
+$day5 = date_sub($today, new DateInterval('P1D'))->format('Y-m-d');
+$day4 = date_sub($today, new DateInterval('P1D'))->format('Y-m-d');
+$day3 = date_sub($today, new DateInterval('P1D'))->format('Y-m-d');
+$day2 = date_sub($today, new DateInterval('P1D'))->format('Y-m-d');
+$day1 = date_sub($today, new DateInterval('P1D'))->format('Y-m-d');
 $week = array($day1, $day2, $day3, $day4, $day5, $day6, $day7);
 
-$weekly = array(0,0,0,0,0,0,0);
+$weekly = array(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 $month_income = 0.0;
 $month_outcome = 0.0;
 
@@ -48,6 +48,7 @@ $result_week = $connect -> query($sql_week);
 if($result_week -> num_rows > 0){
     while($row_week = $result_week-> fetch_assoc()){
         $type = $row_week["type"];
+        $date = $row_week["date"];
         if ($type == "Pengeluaran"){
             for ($i = 0; $i < count($week); $i++){
                 if ($date == $week[$i]){
@@ -66,6 +67,6 @@ echo json_encode(array(
         "income" => $month_income,
         "outcome" => $month_outcome
     ),
-))
+));
 
 ?>
