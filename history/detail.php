@@ -2,12 +2,12 @@
 include "../connection.php";
 
 $id_user = $_POST['id_user'];
-
 $date = $_POST['date'];
+$type = $_POST['type'];
 
-$sql = "SELECT id_history, date, total FROM history
+$sql = "SELECT * FROM history
         WHERE
-        id_user='$id_user' AND date ='$date'
+        id_user='$id_user' AND date ='$date' AND type ='$type'
         ORDER BY date DESC
         ";
 $result = $connect->query($sql);
@@ -19,7 +19,7 @@ if ($result->num_rows > 0){
     }
     echo json_encode(array(
         "success" => true,
-        "data" => $data
+        "data" => $data[0]
     ));
 } else {
     echo json_encode(array(
